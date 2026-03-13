@@ -15,6 +15,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('user.delete');
     Route::patch('/edit/{user}', [UserController::class, 'update'])->name('user.edit');
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::post('/bornes/add-borne', [BorneController::class, 'store'])->name('borne.add');
+    Route::post('/bornes/edit/{borne}', [BorneController::class, 'update'])->name('borne.edit');
+    Route::delete('/bornes/delete/{borne}', [BorneController::class, 'destroy'])->name('borne.delete');
 });
 
 Route::get('/bornes', [BorneController::class, 'index'])->name('bornes');

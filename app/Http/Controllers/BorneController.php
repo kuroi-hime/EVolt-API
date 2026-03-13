@@ -46,7 +46,18 @@ class BorneController extends Controller
      */
     public function store(StoreBorneRequest $request)
     {
-        //
+        $borne = Borne::create([
+                'nom_borne' => $request->nom_borne,
+                'type_connecteur' => $request->type_connecteur,
+                'puissance_borne' => $request->puissance_borne,
+                'latitude_borne' => $request->latitude_borne,
+                'longitude_borne' => $request->longitude_borne,
+            ]);
+
+        return response()->json([
+            'message' => 'Borne ajoutée avec succés.',
+            'borne' => $borne,
+        ], 201);
     }
 
     /**
@@ -62,7 +73,29 @@ class BorneController extends Controller
      */
     public function update(UpdateBorneRequest $request, Borne $borne)
     {
-        //
+        $data[] = [];
+        if($request->filled('nom_borne'))
+            $data['nom_borne'] = $request->nom_borne;
+
+        if($request->filled('type_connecteur'))
+            $data['type_connecteur'] = $request->type_connecteur;
+
+        if($request->filled('puissance_borne'))
+            $data['puissance_borne'] = $request->puissance_borne;
+
+        if($request->filled('latitude_borne'))
+            $data['latitude_borne'] = $request->latitude_borne;
+
+        if($request->filled('longitude_borne'))
+            $data['longitude_borne'] = $request->longitude_borne;
+
+        if($data)
+            $borne->update($data);
+
+        return response()->json([
+            'message' => 'Borne mise à jour.',
+            'borne' => $borne
+        ]);
     }
 
     /**
@@ -70,6 +103,10 @@ class BorneController extends Controller
      */
     public function destroy(Borne $borne)
     {
-        //
+        $borne->delete();
+
+        return response()->json([
+            'message' => 'Borne supprimée avec succés.'
+        ]);
     }
 }
