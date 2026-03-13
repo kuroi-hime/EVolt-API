@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\BorneController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,3 +15,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/edit/{user}', [UserController::class, 'update'])->name('user.edit');
     Route::get('/users', [UserController::class, 'index'])->name('users');
 });
+
+Route::get('/bornes', [BorneController::class, 'index'])->name('bornes');
