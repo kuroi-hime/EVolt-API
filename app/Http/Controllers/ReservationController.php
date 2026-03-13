@@ -2,19 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FilterReservationRequest;
 use App\Http\Requests\StoreReservationRequest;
 use App\Http\Requests\UpdateReservationRequest;
+use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(FilterReservationRequest $request)
     {
-        //
+        $query = Reservation::where('est_annulee', false);
+
+        // à vérifier après
+        
+        // if($request->filled('statut')){
+        //     if($request->statut == 'passees')
+        //         // wereRaw pour SQL brute
+        //         $query = $query->whereRaw('DATE_ADD(heure_debut, INTERVAL duree_estimee MINUTE) <= ?', [now()]);
+
+        //     if($request->statut == 'actuelles')
+        //         $query = $query->whereRaw('DATE_ADD(heure_debut, INTERVAL duree_estimee MINUTE) > ?', [now()]);
+        // }
+
+        $reservations = $query->get();
+
+        return response()->json([
+            'reservations' => $reservations,
+        ]);
     }
 
     /**

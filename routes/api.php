@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/bornes', [BorneController::class, 'index'])->name('bornes');
 Route::post('/bornes/{id}/reserver', [ReservationController::class, 'store'])->name('reservation.add');
 Route::post('/reservations/{reservation}', [ReservationController::class, 'update'])->name('reservation.edit');
+Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
